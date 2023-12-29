@@ -99,7 +99,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const response = await axios.get('/api/account/my-account');
+        const response = await axios.get('/api/oauth/v1/my-account');
 
         const { user } = response.data;
 
@@ -141,9 +141,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       email,
       password,
     });
-    const { accessToken, user } = response.data;
-
-    setSession(accessToken);
+    const { access_token, user } = response.data;
+    setSession(access_token);
 
     dispatch({
       type: Types.LOGIN,

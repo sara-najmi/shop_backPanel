@@ -47,7 +47,7 @@ export default function GeneralAppPage() {
 
   const { themeStretch } = useSettingsContext();
 
-  const [countData, setCountData] = useState({});
+  const [countData, setCountData] = useState();
 
   const [dataTable, setDataTable] = useState([]);
 
@@ -67,7 +67,6 @@ export default function GeneralAppPage() {
         return response.json()
       })
       .then(data => {
-        debugger
         setDataTable(data)
       })
   }, []);
@@ -80,106 +79,87 @@ export default function GeneralAppPage() {
 
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3}>
-          {/* <Grid item xs={12} md={8}>
-            <AppWelcome
-              title={`Welcome back! \n ${user?.displayName}`}
-              description="If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything."
-              img={
-                <SeoIllustration
-                  sx={{
-                    p: 3,
-                    width: 360,
-                    margin: { xs: 'auto', md: 'inherit' },
+          {countData ?
+            <>
+              <Grid item xs={12} md={4}>
+                <AppWidgetSummary
+                  title="تعداد کاربران"
+                  percent={2.6}
+                  total={countData.userCount}
+                  chart={{
+                    colors: [theme.palette.primary.main],
+                    series: [5, 18, 12, 51, 68, 11, 39, 37, 27, 20],
                   }}
                 />
-              }
-              action={<Button variant="contained">Go Now</Button>}
-            />
-          </Grid>
+              </Grid>
 
-          <Grid item xs={12} md={4}>
-            <AppFeatured list={_appFeatured} />
-          </Grid> */}
+              <Grid item xs={12} md={4}>
+                <AppWidgetSummary
+                  title="تعداد سفارشات"
+                  percent={0.2}
+                  total={countData.orderCount}
+                  chart={{
+                    colors: [theme.palette.info.main],
+                    series: [20, 41, 63, 33, 28, 35, 50, 46, 11, 26],
+                  }}
+                />
+              </Grid>
 
-          <Grid item xs={12} md={4}>
-            <AppWidgetSummary
-              title="تعداد کاربران"
-              percent={2.6}
-              total={countData.userCount}
-              chart={{
-                colors: [theme.palette.primary.main],
-                series: [5, 18, 12, 51, 68, 11, 39, 37, 27, 20],
-              }}
-            />
-          </Grid>
+              <Grid item xs={12} md={4}>
+                <AppWidgetSummary
+                  title="تعداد کالاهای فعال"
+                  percent={-0.1}
+                  total={countData.productCount}
+                  chart={{
+                    colors: [theme.palette.warning.main],
+                    series: [8, 9, 31, 8, 16, 37, 8, 33, 46, 31],
+                  }}
+                />
+              </Grid>
 
-          <Grid item xs={12} md={4}>
-            <AppWidgetSummary
-              title="تعداد سفارشات"
-              percent={0.2}
-              total={countData.orderCount}
-              chart={{
-                colors: [theme.palette.info.main],
-                series: [20, 41, 63, 33, 28, 35, 50, 46, 11, 26],
-              }}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <AppWidgetSummary
-              title="تعداد کالاهای فعال"
-              percent={-0.1}
-              total={countData.productCount}
-              chart={{
-                colors: [theme.palette.warning.main],
-                series: [8, 9, 31, 8, 16, 37, 8, 33, 46, 31],
-              }}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentDownload
-              title="کل سفارشات"
-              chart={{
-                colors: [
-                  theme.palette.primary.main,
-                  theme.palette.info.main,
-                  theme.palette.error.main,
-                  theme.palette.warning.main,
-                ],
-                series: [
-                  { label: 'تحویل شده', value: countData.orderCountDelivered },
-                  { label: 'تحویل نشده', value: countData.orderCountNotDelivered },
-                ],
-              }}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AppAreaInstalled
-              title="تعداد سفارشات"
-              subheader="(+43%) than last year"
-              chart={{
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-                series: [
-                  {
-                    year: '1400',
-                    data: [
-                      { name: 'لغو شده', data: [10, 41, 35, 51, 49, 62, 69, 91, 148] },
-                      { name: 'تحویل شده', data: [10, 34, 13, 56, 77, 88, 99, 77, 45] },
+              <Grid item xs={12} md={6} lg={4}>
+                <AppCurrentDownload
+                  title="کل سفارشات"
+                  chart={{
+                    colors: [
+                      theme.palette.primary.main,
+                      theme.palette.info.main,
+                      theme.palette.error.main,
+                      theme.palette.warning.main,
                     ],
-                  },
-                  {
-                    year: '1401',
-                    data: [
-                      { name: 'لغو شده', data: [148, 91, 69, 62, 49, 51, 35, 41, 10] },
-                      { name: 'تحویل شده', data: [45, 77, 99, 88, 77, 56, 13, 34, 10] },
+                    series: [
+                      { label: 'تحویل شده', value: countData.orderCountDelivered },
+                      { label: 'تحویل نشده', value: countData.orderCountNotDelivered },
                     ],
-                  },
-                ],
-              }}
-            />
-          </Grid>
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={12} md={6} lg={8}>
+                <AppAreaInstalled
+                  title="تعداد سفارشات"
+                  subheader="(+43%) than last year"
+                  chart={{
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                    series: [
+                      {
+                        year: '1400',
+                        data: [
+                          { name: 'لغو شده', data: [10, 41, 35, 51, 49, 62, 69, 91, 148] },
+                          { name: 'تحویل شده', data: [10, 34, 13, 56, 77, 88, 99, 77, 45] },
+                        ],
+                      },
+                      {
+                        year: '1401',
+                        data: [
+                          { name: 'لغو شده', data: [148, 91, 69, 62, 49, 51, 35, 41, 10] },
+                          { name: 'تحویل شده', data: [45, 77, 99, 88, 77, 56, 13, 34, 10] },
+                        ],
+                      },
+                    ],
+                  }}
+                />
+              </Grid> </> : <></>}
 
           <Grid item xs={12} lg={12}>
             <AppNewInvoice
@@ -195,40 +175,7 @@ export default function GeneralAppPage() {
             />
           </Grid>
 
-          {/* <Grid item xs={12} md={6} lg={4}>
-            <AppTopRelated title="Top Related Applications" list={_appRelated} />
-          </Grid>
 
-          <Grid item xs={12} md={6} lg={4}>
-            <AppTopInstalledCountries title="Top Installed Countries" list={_appInstalled} />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppTopAuthors title="Top Authors" list={_appAuthors} />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <Stack spacing={3}>
-              <AppWidget
-                title="Conversion"
-                total={38566}
-                icon="eva:person-fill"
-                chart={{
-                  series: 48,
-                }}
-              />
-
-              <AppWidget
-                title="Applications"
-                total={55566}
-                icon="eva:email-fill"
-                color="info"
-                chart={{
-                  series: 75,
-                }}
-              />
-            </Stack>
-          </Grid> */}
         </Grid>
       </Container>
     </>
