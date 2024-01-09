@@ -50,6 +50,8 @@ export default function GeneralAppPage() {
   const [countData, setCountData] = useState();
 
   const [dataTable, setDataTable] = useState([]);
+  const [month, setMonth] = useState([]);
+  const [countMonth, setCountMonth] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:8080/api/dashboard/count-all")
@@ -58,6 +60,8 @@ export default function GeneralAppPage() {
       })
       .then(data => {
         setCountData(data)
+        setMonth(data.chart.map(v => v[2]))
+        setCountMonth(data.chart.map(v => v[1]))
       })
   }, []);
 
@@ -140,20 +144,18 @@ export default function GeneralAppPage() {
                   title="تعداد سفارشات"
                   subheader="(+43%) than last year"
                   chart={{
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                    categories: month,
                     series: [
                       {
                         year: '1400',
                         data: [
-                          { name: 'لغو شده', data: [10, 41, 35, 51, 49, 62, 69, 91, 148] },
-                          { name: 'تحویل شده', data: [10, 34, 13, 56, 77, 88, 99, 77, 45] },
+                          { name: 'ثبت شده', data: countMonth },
                         ],
                       },
                       {
                         year: '1401',
                         data: [
-                          { name: 'لغو شده', data: [148, 91, 69, 62, 49, 51, 35, 41, 10] },
-                          { name: 'تحویل شده', data: [45, 77, 99, 88, 77, 56, 13, 34, 10] },
+                          { name: 'ثبت شده', data: [45, 77, 99, 88, 77, 56, 13, 34, 10] },
                         ],
                       },
                     ],

@@ -65,8 +65,8 @@ const ROLE_OPTIONS = [
 const TABLE_HEAD = [
   { id: 'firstname', label: 'نام', align: 'left' },
   { id: 'lastname', label: 'نام خانوادگی', align: 'left' },
-  { id: 'nationalCode', label: 'کد ملی', align: 'left' },
-  { id: 'uniId', label: 'کد پرسنلی/شماره دانشجویی/کد استادی', align: 'center' },
+  { id: 'nationalCode', label: 'نام کاربری', align: 'left' },
+  { id: 'uniId', label: 'رمز عبور', align: 'center' },
 ];
 
 // ----------------------------------------------------------------------
@@ -229,22 +229,22 @@ export default function UserListPage() {
         />
 
         <Card>
-          <Tabs
-            value={filterStatus}
-            onChange={handleFilterStatus}
-            sx={{
-              px: 2,
-              bgcolor: 'background.neutral',
-            }}
-          >
-            {STATUS_OPTIONS.map((tab) => (
-              <Tab key={tab} label={tab} value={tab} />
-            ))}
-          </Tabs>
+            {/* <Tabs
+              value={filterStatus}
+              onChange={handleFilterStatus}
+              sx={{
+                px: 2,
+                bgcolor: 'background.neutral',
+              }}
+            >
+              {STATUS_OPTIONS.map((tab) => (
+                <Tab key={tab} label={tab} value={tab} />
+              ))}
+            </Tabs> */}
 
           <Divider />
 
-          <UserTableToolbar
+          {/* <UserTableToolbar
             isFiltered={isFiltered}
             filterName={filterName}
             filterRole={filterRole}
@@ -252,7 +252,7 @@ export default function UserListPage() {
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
-          />
+          /> */}
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction

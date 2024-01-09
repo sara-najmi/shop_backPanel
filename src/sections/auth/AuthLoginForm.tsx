@@ -69,18 +69,18 @@ export default function AuthLoginForm() {
       <Stack spacing={3}>
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
-        <RHFTextField name="email" label="نام کاربری" />
+        <RHFTextField dir="rtl"name="email" label="نام کاربری" />
 
         <RHFTextField
           name="password"
           label="رمز عبور"
-          type={showPassword ? 'text' : 'password'}
+          // type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                {/* <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
                   <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
+                </IconButton> */}
               </InputAdornment>
             ),
           }}
